@@ -1,4 +1,4 @@
-A Blackboard Learn building block for testing Blackboard APIs. It provides a provides a script engine selector, a simple text area for entering code, and an output area.
+A Blackboard Learn building block for testing Blackboard APIs. It provides a script engine selector, a simple text area for entering code, and an output area.
 
 **WARNING**: not for production use!
 
