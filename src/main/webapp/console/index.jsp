@@ -65,6 +65,8 @@
 	if(showConsoleGui){
 %>
 	<div class="warning">This Building Block is for API testing only. It is not intended for use in a production environment.</div>
+	<p><a id="helpLink">[Show Help]</a></p>
+	<div id="help">
 	<p>The BbScripting context contains the following objects:</p>
 	<ul><li>persistenceManager (a BbPersistenceManager instance)</li>
 	<li>request (HttpServletRequest instance)</li></ul>
@@ -81,7 +83,8 @@ for(var i=0; i&lt;size; i++){
     courseNames.push(course.getTitle() + '(' + course.getDescription() + ')');
 }
 var nameStr = courseNames.join("\n");
-nameStr;</pre>		
+nameStr;</pre>
+	</div>		
 		<label>Engine:</label><select id="engine" name="engine">
 		<%
 		String options = "";
@@ -101,6 +104,12 @@ nameStr;</pre>
 		<p><button id="submit">Submit</button></p>
 		<script>
 		jQuery(document).ready(function(){
+			
+			jQuery('#helpLink').on('click', function(){
+				jQuery('#helpLink').text(jQuery('#helpLink').text()=='[Show Help]' ? '[Hide Help]' : '[Show Help]');
+				jQuery('#help').toggle();
+			});
+			
 			jQuery('#submit').on('click', function(){
 				
 				var selectedEngine = jQuery('#engine').val();

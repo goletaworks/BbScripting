@@ -7,6 +7,15 @@ p, li {
 	margin-top: 10px;
 }
 
+#help {
+	display: none;
+	border: 5px solid #ddf;
+	border-radius: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding: 10px;
+}
+
 #script {
 	background-color: black;
 	color: white;
