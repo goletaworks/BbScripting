@@ -1,0 +1,53 @@
+<manifest>
+	<plugin>
+		<name value= "BbScripting"/>
+		<handle value= "BbScripting"/>
+		<description value= "BbScripting Building Block"/>
+		<version value= "${pom.version}"/>
+		<requires>
+			<bbversion value="9.1"/>
+		</requires>
+		<vendor>
+			<id value="Gwrk"/>
+			<name value="${pom.organization.name}"/>
+			<url value="${pom.organization.url}" />
+			<description value="GoletaWorks E-learning Solutions" />
+		</vendor>
+		<http-actions/>
+		<application-defs>
+			<application
+					handle="BbScripting"
+					can-allow-guest="false"
+					is-sys-tool="true" 
+					is-course-tool="false" 
+					is-org-tool="false" 
+					is-group-tool="false"
+					type="shared"
+					name="BbScripting"
+					>
+				<description lang="en_US">
+				Test Blackboard APIs using your scripting engine of choice.
+				</description>
+				<links>
+					<link>
+						<type value="system_tool"/>
+						<name value="BbScripting"/>
+						<url value="console/index.jsp"/>
+						<description value="Test Blackboard APIs using your scripting engine of choice."/>
+					</link>
+				</links>
+			</application>
+		</application-defs>
+		<module-defs>
+		</module-defs>
+		<permissions>
+			<permission type="java.lang.reflect.ReflectPermission" name="suppressAccessChecks" actions="*"/>
+			<!-- 
+			<permission type="blackboard.data.AttributePermission" name="user.personalinfo" actions="get,set"/>
+			<permission type="blackboard.data.AttributePermission" name="user.authinfo" actions="get,set"/>
+			<permission type="blackboard.data.AttributePermission" name="user.cardnumber" actions="get,set"/>
+			<permission type="persist" name="userlifecycleeventimpl" actions="create,modify,delete"/>
+			-->
+		</permissions>
+	</plugin>
+</manifest>

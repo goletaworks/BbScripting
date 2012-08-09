@@ -1,0 +1,37 @@
+ul {
+	list-style: square inside none;
+	margin: 10px;
+}
+
+p, li {
+	margin-top: 10px;
+}
+
+#script {
+	background-color: black;
+	color: white;
+	font-family: monospace;
+	font-size: 13px;
+	padding: 10px;
+	margin: 20px;
+	margin-right: -20px;
+}
+
+#result {
+	background-color: #ffffee;
+	color: black;
+	font-family: monospace;
+	font-size: 13px;
+	padding: 10px;
+	margin: 20px;
+	margin-right: -20px;
+	overflow: scroll;
+}
+
+#sample {
+	font-family: courier;
+	border: 2px solid #ddf;
+	border-radius: 5px;
+	padding: 10px;
+	margin: 10px;
+}
