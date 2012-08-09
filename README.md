@@ -1,4 +1,6 @@
-A Blackboard Learn building block for testing Blackboard APIs.
+A Blackboard Learn building block for testing Blackboard APIs. It provides a provides a script engine selector, a simple text area for entering code, and an output area.
+
+**WARNING**: not for production use!
 
 ## Building BbScripting ##
 To build, your Maven repository must include two jars from your <blackboard>`/systemlib` directory. See the POM file for more information.
