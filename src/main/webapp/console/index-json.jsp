@@ -9,47 +9,47 @@
 		blackboard.persist.BbPersistenceManager,
 		blackboard.platform.persistence.PersistenceServiceFactory,
 		com.goletaworks.bb.learn.bbscripting.BbScripting,
-		com.goletaworks.bb.learn.bbscripting.RecursivePropertyExclusionStrategy"%>
+		com.goletaworks.bb.learn.bbscripting.ConfigurableExclusionStrategy"%>
 		
 <%
-	String script = request.getParameter("script");
-	String engineName = request.getParameter("engine");
-	String result = null;
-	
-	if(script == null){
-		script = "";
-	}
-	if(engineName == null){
-		engineName = "";
-	}
-	
-	BbScripting bbScripting = new BbScripting();
-	if(script.trim().equals("")){
-		out.print("{}");
-	}
-	else {
-		BbPersistenceManager persistenceManager =
+			String script = request.getParameter("script");
+			String engineName = request.getParameter("engine");
+			String result = null;
+			
+			if(script == null){
+				script = "";
+			}
+			if(engineName == null){
+				engineName = "";
+			}
+			
+			BbScripting bbScripting = new BbScripting();
+			if(script.trim().equals("")){
+				out.print("{}");
+			}
+			else {
+				BbPersistenceManager persistenceManager =
 			PersistenceServiceFactory.getInstance().getDbPersistenceManager();
-		HashMap<String, Object> objects = new HashMap<String, Object>();
-		objects.put("request", request);
-		objects.put("persistenceManager", persistenceManager);
-		Gson gson = new GsonBuilder()
-				.setExclusionStrategies(new RecursivePropertyExclusionStrategy())
-		        .serializeNulls()
-		        .create();
-		try {			
+				HashMap<String, Object> objects = new HashMap<String, Object>();
+				objects.put("request", request);
+				objects.put("persistenceManager", persistenceManager);
+				Gson gson = new GsonBuilder()
+				.setExclusionStrategies(new ConfigurableExclusionStrategy())
+				        .serializeNulls()
+				        .create();
+				try {			
 			result = gson.toJson(bbScripting.execute(engineName, objects, script).toString());			
-		}
-		catch(Exception e){
+				}
+				catch(Exception e){
 			result = e.toString() + "\n";
 			StackTraceElement[] ste = e.getStackTrace();
 			for(int i=0; i<ste.length; i++){
 				result += ste[i].toString() + "\n";
 			}
 			result = gson.toJson(result);
-		}
-		finally {
+				}
+				finally {
 			out.print(result);
-		}
-	}		
-%>
+				}
+			}
+		%>

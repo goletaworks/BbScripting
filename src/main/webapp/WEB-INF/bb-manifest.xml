@@ -42,12 +42,10 @@
 		</module-defs>
 		<permissions>
 			<permission type="java.lang.reflect.ReflectPermission" name="suppressAccessChecks" actions="*"/>
-			<!-- 
 			<permission type="blackboard.data.AttributePermission" name="user.personalinfo" actions="get,set"/>
 			<permission type="blackboard.data.AttributePermission" name="user.authinfo" actions="get,set"/>
 			<permission type="blackboard.data.AttributePermission" name="user.cardnumber" actions="get,set"/>
 			<permission type="persist" name="userlifecycleeventimpl" actions="create,modify,delete"/>
-			-->
 		</permissions>
 	</plugin>
 </manifest>

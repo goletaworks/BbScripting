@@ -6,7 +6,10 @@
 		javax.script.ScriptException,
 		blackboard.persist.BbPersistenceManager,
 		blackboard.platform.persistence.PersistenceServiceFactory,
-		com.goletaworks.bb.learn.bbscripting.BbScripting"%>
+		com.goletaworks.bb.learn.bbscripting.BbScripting,
+		com.google.gson.Gson,
+		com.google.gson.GsonBuilder,
+		com.goletaworks.bb.learn.bbscripting.ConfigurableExclusionStrategy"%>
 <%@ taglib uri="/bbNG" prefix="bbNG"%>
 <bbNG:learningSystemPage>
 	<bbNG:jsFile href="js/jquery-1.7.2.min.js"/>
@@ -46,10 +49,16 @@
 
 	if(!script.trim().equals("")){
 		BbPersistenceManager persistenceManager =
-			PersistenceServiceFactory.getInstance().getDbPersistenceManager();
+				PersistenceServiceFactory.getInstance().getDbPersistenceManager();
+		
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		ConfigurableExclusionStrategy exclusionStrategy = new ConfigurableExclusionStrategy();
+		
 		HashMap<String, Object> objects = new HashMap<String, Object>();
 		objects.put("request", request);
 		objects.put("persistenceManager", persistenceManager);
+		objects.put("gsonBuilder", gsonBuilder);
+		objects.put("exclusionStrategy", exclusionStrategy);
 		try {
 			result = (String) bbScripting.execute(engineName, objects, script);
 		}
@@ -65,26 +74,7 @@
 	if(showConsoleGui){
 %>
 	<div class="warning">This Building Block is for API testing only. It is not intended for use in a production environment.</div>
-	<p><a id="helpLink">[Show Help]</a></p>
-	<div id="help">
-	<p>The BbScripting context contains the following objects:</p>
-	<ul><li>persistenceManager (a BbPersistenceManager instance)</li>
-	<li>request (HttpServletRequest instance)</li></ul>
-		
-	<p>The following example retrieves all courses and prints their titles and descriptions. 
-	Note the value of the last line (<code>nameStr;</code>)
-	is treated as the return value and will be displayed in the results box.</p>
-	<pre id="sample">var courseLoader = persistenceManager.getLoader('CourseDbLoader');
-var courseList = courseLoader.loadAllCourses();
-var courseNames = [];
-var size = courseList.size();
-for(var i=0; i&lt;size; i++){
-    var course = courseList.get(i);
-    courseNames.push(course.getTitle() + '(' + course.getDescription() + ')');
-}
-var nameStr = courseNames.join("\n");
-nameStr;</pre>
-	</div>		
+	<div>
 		<label>Engine:</label><select id="engine" name="engine">
 		<%
 		String options = "";
@@ -99,19 +89,49 @@ nameStr;</pre>
 		out.print(options);
 		%>
 		</select>
-		<div><label for="script">Script:</label><br/></div>
-		<textarea id="script" name="script" rows="10" cols="80"><% out.print(script); %></textarea>
-		<p><button id="submit">Submit</button></p>
+		<button id="submit">Execute (CTRL + ENTER)</button>&nbsp; <button id="helpButton" type="button">Show Help</button>
+		
+		<div id="help">
+			<p>The BbScripting context contains the following objects:</p>
+			<ul>
+				<li>persistenceManager (a BbPersistenceManager instance)</li>
+				<li>request (HttpServletRequest instance)</li>
+			</ul>	
+			<p>The following example retrieves all courses and prints their titles and descriptions. 
+			Note the value of the last line (<code>nameStr;</code>)
+			is treated as the return value and will be displayed in the results box.</p>
+			<pre id="sample">var courseLoader = persistenceManager.getLoader('CourseDbLoader');
+var courseList = courseLoader.loadAllCourses();
+var courseNames = [];
+var size = courseList.size();
+for(var i=0; i&lt;size; i++){
+    var course = courseList.get(i);
+    courseNames.push(course.getTitle() + '(' + course.getDescription() + ')');
+}
+var nameStr = courseNames.join("\n");
+nameStr;
+			</pre>
+		</div>				
+	</div>
+		
+		<div id="ide">
+		<div id="scriptdiv"><textarea id="script" name="script" rows="10" cols="80"><% out.print(script); %></textarea></div>		
 		<script>
 		jQuery(document).ready(function(){
 			
-			jQuery('#helpLink').on('click', function(){
-				jQuery('#helpLink').text(jQuery('#helpLink').text()=='[Show Help]' ? '[Hide Help]' : '[Show Help]');
+			jQuery('#helpButton').on('click', function(){
+				jQuery('#helpButton').text(jQuery('#helpButton').text()=='Show Help' ? 'Hide Help' : 'Show Help');
 				jQuery('#help').toggle();
 			});
 			
-			jQuery('#submit').on('click', function(){
-				
+			
+			jQuery(document).keydown(function(ev){
+				if(ev.ctrlKey && ev.which == 13){
+					jQuery('#submit').trigger('click');
+				}
+			});
+			
+			jQuery('#submit').on('click', function(){				
 				var selectedEngine = jQuery('#engine').val();
 				var script = jQuery('#script').val();
 				
@@ -131,8 +151,10 @@ nameStr;</pre>
 			});
 		});
 		</script>
-	<pre id="result" style="width: 1024px; height: 400px; overflow: auto; background-color: black; color: white">
+	<pre id="result">
 	</pre>
+	<!-- end ide -->
+	</div>
 <%
 } else {
 	out.print(result);

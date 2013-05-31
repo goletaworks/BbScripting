@@ -14,6 +14,22 @@ p, li {
 	margin-top: 10px;
 	margin-bottom: 10px;
 	padding: 10px;
+	position: absolute;
+	z-index: 2;
+	background: white;
+}
+
+#ide {
+	
+}
+
+#scriptdiv {
+	position: absolute;
+	top: 145px;
+	left: 45px;
+	width: 600px;
+	bottom: 10px;
+	z-index: 1;	
 }
 
 #script {
@@ -22,8 +38,16 @@ p, li {
 	font-family: monospace;
 	font-size: 13px;
 	padding: 10px;
+	/*	
 	margin: 20px;
 	margin-right: -20px;
+	*/
+	height: 100%;
+	width: 100%;
+}
+
+#submit {
+	
 }
 
 #result {
@@ -31,10 +55,22 @@ p, li {
 	color: black;
 	font-family: monospace;
 	font-size: 13px;
+	/*
 	padding: 10px;
 	margin: 20px;
 	margin-right: -20px;
-	overflow: scroll;
+	*/
+	border: 2px solid #eeeeff;
+	border-radius: 10px;	
+	overflow: auto;
+	padding: 10px;
+	
+	position: absolute;
+	top: 145px;
+	left: 660px;
+	right: 45px;
+	bottom: 10px;
+	z-index: 1;
 }
 
 #sample {
